@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>christmas wishes</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'helvetica neue';
+        }
+        
+        html,body {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(to bottom, #0f0f23, #1a1a2e);
+            color: white;
+            text-align: center;
+            overflow: hidden;
+            
+        }
+        main{
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        button{
+            padding: 15px 30px;
+            background: #aa5656e1;
+            color: white;
+            border: 2px solid rgb(186, 22, 77);
+            border-radius: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        
+        }
+        button:active{
+            scale: 0.95;
+        }
+        button:hover {
+            background: #ff5252;
+            transform: scale(1.05);
+        }
+        .card{
+            
+            max-width: 400px;
+            background :linear-gradient(rgba(134, 89, 89, 0.676),rgba(54, 54, 174, 0.721));
+            padding: 50px 20px;
+            width: 90%;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(245, 245, 245, 0.461);
+            border-radius: 8px;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 1s, transform 1s;
+            display: none;
+            
+        }
+        .card.show {
+            opacity: 1;
+            transform: scale(1);
+            display: block;
+        }
+        .card h4{
+            color: #ffeb3b;
+            font-size: 2em;
+            margin-bottom: 10px;
+        
+        }
+        .card h6{
+            font-size: 1.2em;
+            line-height: 1.5;
+            min-height: 60px;
+            
+        }
+        .snowflake {
+            position: absolute;
+            color: white;
+            font-size: 1em;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { top: -10px; opacity: 1; }
+            100% { top: 100vh; opacity: 0; }
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 15px;
+                max-width: 90%;
+            }
+            .card h2 {
+                font-size: 1.5em;
+            }
+            .typed-text {
+                font-size: 1em;
+                min-height: 50px;
+            }
+            .start-btn, .reveal-btn {
+                padding: 12px 20px;
+                font-size: 1em;
+            }
+            .snowflake {
+                font-size: 0.8em;
+            }
+            }
+        
+
+        @media (prefers-reduced-motion: reduce) {
+            .card, .snowflake {
+                animation: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+            <button>click</button>
+             <div class="card">
+            <h4>merry christmas🎅</h4>
+            <h6></h6>
+        </div>
+       
+    </main>
+
+    <script>
+        var btn=document.querySelector('button')
+        var card=document.querySelector('.card')
+        var wishText=document.querySelector('.card h6')
+        const text = "Wishing you a season filled with joy, love, and twinkling lights. May your holidays be as magical as a snowfall.";
+            const words = text.split(' ');
+            var wordIndex = 0;
+            var snowInterval;
+
+        function typeWord(){
+        if (wordIndex < words.length) {
+                    wishText.textContent += (wordIndex > 0 ? ' ' : '') + words[wordIndex];
+                    wordIndex++;
+                    setTimeout(typeWord, 150);
+        }
+    }
+        function createSnowflake(intense = false) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.textContent = '❄';
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.animationDuration = intense ? (Math.random() * 2 + 1) + 's' : (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(snowflake);
+                setTimeout(() => snowflake.remove(), intense ? 3000 : 5000);
+            }
+
+            btn.addEventListener('click', () => {
+                btn.style.display = 'none';
+                card.classList.add('show');
+                snowInterval = setInterval(() => createSnowflake(false), 300);
+                typeWord();
+
+            })
+   </script>
+</body>
+</html>
